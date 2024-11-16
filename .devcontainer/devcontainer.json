@@ -5,10 +5,12 @@
   "runArgs": [
     "--privileged", // Allow privileged access (important for emulator and GPU)
     "--device=/dev/kvm", // Allow KVM access for hardware acceleration
+    "--device",
+    "/dev/dri:/dev/dri",
     "--gpus",
     "all", // Expose all available GPUs to the container
     "-e",
-    "DISPLAY=$DISPLAY", // Use the host's DISPLAY environment variable
+    "DISPLAY=${env:DISPLAY}", // Use the host's DISPLAY environment variable
     "-v",
     "/tmp/.X11-unix:/tmp/.X11-unix" // X11 socket forwarding for GUI
   ],
@@ -18,7 +20,8 @@
       "extensions": [
         "dart-code.flutter",
         "dart-code.dart-code",
-        "ms-azuretools.vscode-docker"
+        "ms-azuretools.vscode-docker",
+        "eamodio.gitlens"
       ]
     }
   },
@@ -29,6 +32,5 @@
   ],
   "mounts": [
     "source=/dev/kvm,target=/dev/kvm,type=bind"
-  ],
-  "remoteUser": "vscode"
+  ]
 }
